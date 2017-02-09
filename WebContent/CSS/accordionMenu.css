@@ -1,0 +1,224 @@
+
+.leaflet-container{
+     font-family: 'PT Sans', sans-serif;
+     
+}
+
+   
+#accordionButton {
+    position:absolute;
+    top:100px;
+    width:42px;
+}
+
+#accordionButton {
+    border-bottom: none;
+}
+
+#accordionButton .ui-accordion-content:last-of-type {
+    border-bottom:2px white solid;
+}
+
+#accordionButtonHeader{
+    height:36px;
+    padding:0;
+}
+
+
+#filterByUserId{
+    cursor: pointer;
+}
+
+
+.filtersImgForButton{
+    width:60%;
+    border-radius:.4em;
+}
+
+#imgCluster{
+    overflow: hidden;
+    width: 52%;
+    margin-top:.5em;
+    border-radius:.4em;
+}
+
+
+
+body{
+    background:#fff;
+    margin:0;
+    padding:0;
+}
+
+
+
+#menuIcon{
+    height:70%;
+    width:70%;
+    border-radius: .5em;
+    margin-top:15%;
+}
+
+
+#accordionButton ul{
+    margin-top:0;
+    list-style: none outside none;
+    padding-left:0; 
+    margin-bottom:0;
+ }
+
+#accordionButton ul li { 
+    color: darkblue; 
+    display: block;  
+    padding-top:.2em;
+    padding-bottom:.2em;
+}
+
+#accordionButton ul li:first-child{
+    padding-top:.5em;
+}
+
+#accordionButton ul li:last-child { padding-bottom: .5em;}
+
+
+#accordion{
+    position:absolute;
+    top:100px;
+    width:250px;
+    display:none;
+    margin-left:53px;
+    
+}
+
+
+#arrowImg{
+   width:4%;
+   height:4%;
+   padding-left:5%;
+   padding-right:.5em;
+   cursor:pointer;
+}
+
+#accordion ul{
+    margin-top:0;
+    list-style: none outside none;
+    padding-left:0; 
+    margin-bottom:0;
+ }
+
+#accordion ul li { 
+    display: block;
+    border-bottom:.2em solid white;
+    padding-top:.5em;
+    padding-left: .7em;
+    padding-bottom:.5em;
+    font-weight:bold;
+}  
+#accordion ul li:last-child { border-bottom: none; }  
+
+#imgVisited{
+    margin-right:4%;
+    width: 10%;
+    border-radius:.9em;
+}
+
+.clickable{
+    cursor:pointer;
+}
+
+.clickable:hover { 
+    background-color: #82c0ff;
+    color: black;   
+} 
+
+
+#accordion .ui-accordion-content::-webkit-scrollbar
+{
+    width: 10px;
+    background: #ccc;
+}
+
+#accordion .ui-accordion-content::-webkit-scrollbar-track 
+{
+    
+}
+
+
+#accordion .ui-accordion-content::-webkit-scrollbar-thumb 
+{
+    background: #333;
+   
+}
+
+
+
+
+#areaList{
+    height: 215.9px; 
+}
+
+.selectedItem{
+    background: #cd0a0a;
+    color:white;
+    cursor: default;
+}
+
+.imgForItemCluster{
+    width:10%;
+    border-radius:.4em;
+    margin-right: 2%;
+}
+
+#accordionFilters{
+    position:absolute;
+    top:215px;
+    width:240px;
+    left: 316px;
+    display:none;
+}
+
+
+
+#filtersMenu{
+    padding-top: .5em;
+}
+
+
+#firstLineFilters .cat:first-child{
+    margin-left:0;
+}
+
+#secondLineFilters .cat:first-child{
+    margin-left:0;
+}
+
+#thirdLine .cat:first-child{
+    margin-left:0;
+}
+
+.cat{
+    width: 14.5%;
+    border-radius:.4em;
+    display:inline-block;
+    margin-bottom:3%;
+    margin-left:3%;
+    cursor: pointer;
+}
+
+
+.cat:hover{
+    cursor:pointer;
+}
+
+.leaflet-control-attribution{
+    display:none;
+}
+
+
+
+
+    
+ 
+
+
+

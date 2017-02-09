@@ -1,0 +1,275 @@
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.leaflet-popup-content-wrapper{
+    max-height:600px;
+    
+}
+
+#monthClusterInformations{
+    width:330px;
+}
+
+#olderEvents img{
+    height: 50px;
+    float: right;
+    display: flex;
+    margin-right: -40%;
+    margin-top: -24%;
+}
+#dayClusterInformations{
+    width:355px;
+    display:none;
+    /*position:relative;
+    left:480px;
+    top:-452px;*/
+    position:absolute;
+    left:501px;
+    top:61px;
+    padding-left:30px;
+    margin-left:-40px;
+    //border-left-color:#000;
+    //border-left-width: 2px;
+    //border-left-style: solid;
+    
+}
+.leaflet-popup-pane #dayClusterInformations .barchartbox{
+    margin-bottom:5px;
+}
+.leaflet-popup-pane #dayClusterInformations .divsInDayView{
+    margin-top:15px;
+}
+
+
+
+#sentimentLegendhours{
+    position:absolute;
+    left:32px;
+    top:5px; 
+    width:50px;
+}
+#dayClusterInformations #prevButton{
+    float: left;
+    width: 20px;
+    height: 40px;
+    padding-top: 7%;
+}
+#dayClusterInformations #nextButton{
+   width: 20px;
+   height: 40px;
+   padding-top: 7%;
+}
+#dayClusterInformations #placesInThatHour{
+   width: 355px;
+   overflow: auto;
+}
+#tweetsInThatPlaceAndHour ul{
+    margin:0px;
+    padding-left:18px;
+}
+#tweetsInThatPlaceAndHour{
+    height:auto;
+    width : 420px;
+    max-height:175px;
+}
+#tweetsInThatPlaceAndHour{
+    width:auto;
+    overflow:auto;
+}
+#tweetsInThatPlaceAndHour::-webkit-scrollbar {
+    width: 10px;
+    background: #ccc;
+}
+#tweetsInThatPlaceAndHour::-webkit-scrollbar-thumb {
+    background: rgba(102,102,102,0.8); 
+}
+#arrow{
+    
+    position: absolute;
+    top: 62px;
+    left: 455px;
+    display: none;
+}
+#arrow img{
+    width: 35px;
+    height: 75px;
+    
+}
+#actualDay{
+    position: absolute;
+    top: 163px;
+    font-size: 17px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    padding-left:2px;
+    padding-right:2px;
+}
+
+
+
+
+
+
+
+.bar {
+    fill:#0092ef;
+}
+
+.bar:hover {
+    fill:#257AB6;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.tick text{
+    display:none;
+}
+
+.d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(255, 255, 255, 1);
+    color: #fff;
+    border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+
+.barchartbox{
+    border: solid 1px #000;  
+    background: #eee;
+    
+}
+
+
+
+#clustertitle{
+    padding-bottom: 20px;
+}
+
+.bar{
+    cursor:pointer;
+}
+
+#recommendedPlaces{
+    margin-top: 20px;
+}
+
+#olderEvents{
+    margin-top: 20px;
+}
+#olderEvents ul{
+    margin:0px;
+    padding-left:18px;
+}
+
+#olderEvents{
+    height:auto;
+    max-width : 440px;
+    max-height:110px;
+}
+
+#olderEventsList{
+    width:auto;
+    max-height : 90px;
+    overflow:auto;
+}
+#olderEventsList::-webkit-scrollbar {
+    width: 10px;
+    background: #ccc;
+}
+#olderEventsList::-webkit-scrollbar-thumb {
+    background: rgba(102,102,102,0.8); 
+}
+
+#dropdownR{
+    margin-top:10px;
+}
+
+#suggestedList{
+    overflow:auto;
+    height: 160px;
+}
+#suggestedListEvent{
+    overflow:auto;
+    height: 60px;
+}
+#suggestedListEvent ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+}
+#suggestedListEvent ul li{
+    padding-bottom: 5px; 
+}
+#suggestedList::-webkit-scrollbar 
+{
+    width: 10px;
+    background: #ccc;
+}
+
+#suggestedList::-webkit-scrollbar-track 
+{
+    
+   
+}
+
+
+#suggestedList::-webkit-scrollbar-thumb 
+{
+   
+    background: rgba(102,102,102,0.8); 
+    
+}
+#suggestedList ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+}
+
+#suggestedList ul li{
+    padding-bottom: 5px; 
+}
+
+
+#recommended{
+    text-align: left;
+}
+
+#recommended:hover{
+    background:#ddd;
+    cursor: pointer
+}
+
+#titleSuggest{
+    font-size: 1.5em;
+    padding-bottom:10px;
+}
+

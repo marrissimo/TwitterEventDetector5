@@ -1,0 +1,6 @@
+.leaflet-draw-toolbar .leaflet-draw-draw-polyline,
+.leaflet-draw-toolbar .leaflet-draw-draw-polygon,
+.leaflet-draw-toolbar .leaflet-draw-draw-circle,
+.leaflet-draw-toolbar .leaflet-draw-draw-marker{
+	display:none;
+}

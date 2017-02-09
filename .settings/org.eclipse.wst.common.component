@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="TwitterEventDetector5">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes/" source-path="/ImportedClasses"/>
+        <dependent-module archiveName="fastdtw-0.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/fastdtw-0.1/fastdtw-0.1">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-5.1.38.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="opennlp-tools-1.6.0.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/opennlp-tools-1.6.0/opennlp-tools-1.6.0">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gson-2.6.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/gson-2.6.1/gson-2.6.1">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="snakeyaml-1.12.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/snakeyaml-1.12/snakeyaml-1.12">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="twitter-text-1.6.1.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/twitter-text-1.6.1/twitter-text-1.6.1">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-math3-3.6.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/commons-math3-3.6/commons-math3-3.6">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="opennlp-uima-1.6.0.jar" deploy-path="/WEB-INF/lib/" handle="module:/resource/opennlp-uima-1.6.0/opennlp-uima-1.6.0">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="TwitterEventDetector5"/>
+        <property name="java-output-path" value="/TwitterEventDetector5/build/classes"/>
+    </wb-module>
+</project-modules>

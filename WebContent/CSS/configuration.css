@@ -1,0 +1,33 @@
+#conf_build{
+	display:none;
+}
+
+
+.conf{
+	float:right; 
+	height:100%; 
+	width:15%; 
+	margin:50px 1px 1px 1px;
+	 overflow: scroll;
+}
+.prop{
+	float:left; 
+	height:100%; 
+	width:15%; 
+	margin:50px 1px 1px 1px;
+	overflow: scroll;
+}
+.info {
+	padding: 8px 8px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 5px;
+	height:30%;
+	}
+	
+	.info h4 {
+			    margin: 0 0 5px;
+			    color: #777;
+			}

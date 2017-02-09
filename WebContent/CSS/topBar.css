@@ -1,0 +1,390 @@
+h2 {
+    text-align: center;
+    color: darkblue;
+    line-height: 27px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+body {
+    font-size: 13px;
+    line-height: 18px;
+    color: rgb(51, 51, 51);
+   
+}
+
+h2, h3{
+    margin: 0px;
+    color: inherit;
+}
+.topbar {
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    margin-bottom: 0px;
+    top:0px;
+    background: rgb(59,103,158); /* Old browsers */
+    padding-left: 0px;
+    padding-right: 0px;
+    width:100%;
+    border-bottom: 2px solid white;
+    z-index:1000;
+    height:43px;
+    font-family: 'PT Sans', sans-serif;
+}
+
+#full_logo{
+	padding-left:4%;
+    margin: 10px;
+    font-size:25px;
+}
+#logo {
+    float: left;
+     text-decoration: none; 
+    color: #efefef;
+}
+
+#cities{
+	float:left;
+	color:#efefef;
+	background-color:rgb(59,103,158);
+	font-size: 15px;
+	margin-left: 5px;;
+	
+}
+
+#logo:hover{
+    color: #C9C9C9;
+}
+
+.divider{
+    position: relative;
+    float:right;
+    height: 35px;
+    width: 1px;
+    margin-left: 2%;
+    
+    margin-top:-5px;
+   
+    border-right: 1px solid white;
+}
+
+#changeAreaDiv{
+    float:left;
+    margin-left:2%;
+    padding-top: 0.7%;
+    margin-top:0;
+    margin-bottom:0;
+}
+
+
+.login {
+    position:relative;
+    color: #efefef;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+    float:right;
+    top:50%;
+    height:40px;
+    padding-right:0.5%;
+    margin-top:-20px;
+}
+
+#loginImg{
+    vertical-align: middle;
+}
+
+.login:hover{
+    cursor: pointer;
+}
+
+
+.topBarPic{
+    vertical-align: middle;
+}
+
+.open-menu {
+    margin-top: 8px;
+    margin-left: 2px;
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #efefef;
+    margin-right:10px;
+}
+
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right:0;
+    margin: 0px;
+    background: #efefef;
+    border-radius: 0px 0px 5px 5px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    opacity:0.95;
+    text-align:left;
+    border : 2px solid #257AB6;
+    padding-right: 1%;
+    padding-left: 1%;
+    height:auto;
+    width:auto;
+}
+
+.dropdown-menu>ul{
+    list-style: none outside none;
+    padding-left: 0;
+}
+
+.dropdown-menu>ul>li {
+    display: block;
+    font-weight: bold;
+    color:blue;  
+    margin:0;
+    padding-top:1%;
+    border:0;
+}
+
+#ProfileMenu{
+    background-color: transparent;
+    border:transparent;
+    border:0px;
+    cursor:pointer;
+    color:inherit;
+    font-weight: inherit;
+    margin:0;
+    padding:0;
+    font-family: "Lucida Bright", Georgia, serif;
+}
+
+.dropdown-menu a{
+    text-decoration: none;
+    color:blue;
+}
+
+.dropdown-menu li:hover {
+    background-color: aliceblue;
+    color: blue;
+}
+
+.informationProfile{
+    margin-top:5%;
+    clear:both;
+}
+
+.userPic{
+    margin-right:5%;
+}
+
+.informationData{
+    padding-top:5%;
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    float:left;
+    text-align: center;
+    overflow:auto;
+}
+
+#userName{
+    font-size: 150%;
+    color:rgb(59,103,158);
+}
+
+#placesVisited{
+    padding-top:5%;
+    font-size:1em;
+}
+
+.logOutImg{
+    float:right;
+    height:5%;
+    width:18%;
+    border-radius:4%;
+    margin-bottom:3%;
+}
+
+
+.chartContainer{
+    height:100%;
+    float:left;
+    width:49%;
+    padding-bottom:5%;
+}
+
+#chartContainerleft{
+    border-right: 1px dashed blue;
+}
+
+.titlePie{
+    color:darkred;
+    font-size:110%;
+}
+
+
+.chartDiv{
+    padding-top:5%;
+    opacity:0.9;
+    height:100%;
+    clear:both;
+}
+
+.legendDiv{
+    height:25%;
+    width:100%; 
+}
+
+.legendContainer{
+    float:left;
+    width:49%;
+    height: 70%;
+}
+
+#legendContainerLeft{
+    border-right: 1px dashed blue;
+}
+
+
+.search{
+    float:left;
+    background:#fff;
+    padding-left:3%;
+    padding-right:3%;
+    margin-right:2%;
+    margin-left:4%;
+    width:70%;
+    height:22px;
+}
+
+.searchButton{
+    height:100%;
+    cursor:pointer;
+    float:left;
+    margin-bottom: 4px;
+}
+
+.searchResult{
+    margin-top:1%;
+    float:left;
+    color: #efefef;
+    margin-left:1%;
+}
+
+.searchForm{
+    width:16%;
+    display: inline-block;
+    margin-left:1%;
+    background: rgb(59,103,158);
+    float:left;
+    height:28px;
+    top: 50%;
+    position: relative;
+    margin-top:-14px;  
+}
+
+.placesLegend{
+    padding-left: 7%;
+}
+
+.interestsLegend{
+    padding-left: 10%;
+}
+
+.placesChart{
+    padding-top: 5%;
+}
+
+.interestsChart{
+    padding-top:5%;
+}
+
+#changeAreaDropMenu{
+    float:left;
+    padding-left: 2%;
+    padding-top:0.3%;
+}
+
+#changeClusterDropMenu{
+    float:left;
+    padding-left: 1%;
+    padding-top:0.3%;
+}
+
+#viewCluster{
+    float:left;
+    padding-left: 1%;
+    padding-top:0.3%;
+}
+
+.leaflet-top{
+    z-index:1003;
+}
+
+#hormenu {
+    margin: 0; 
+    padding: 0;
+    border-top: 1px solid black;
+}
+
+#hormenu ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+#hormenu li
+{
+    width:100px;
+    float:left;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid black;
+    color:black;
+}
+
+#hormenu a
+{
+    display: block;
+    padding: 5px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#hormenu a:hover
+{
+    background-color: #000033;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+#hormenu li ul
+{
+    display: none
+}
+#hormenu li:hover ul
+{
+    display: block;
+    position: absolute;
+    z-index:1;
+    width:100px;
+    padding: 0;
+    margin: 0 0 0 -1px;
+    border:1px solid black;
+    background: #729fcf;
+}
+#getTweets,#date,#grid,#no_grid{
+	float: right;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 7px
+}
+
+#datepicker1{
+	padding: 3px;
+}
+
+

@@ -1,0 +1,192 @@
+.leaflet-popup-content{
+	
+	background:white;
+	margin:0 auto;
+	float:left;
+	min-height:600px;
+	min-width:900px;
+	padding:10px;
+	overflow:hidden;
+}
+
+
+#up{
+	float:left;
+	height:42%;
+	width:100%;
+	background-image:url("images/ajax-loader.gif");
+	background-repeat: no-repeat;
+    background-position: center;
+    
+}
+#down{
+	float:left;
+	height:50%;
+	width:100%;
+	background-image:url("images/ajax-loader.gif");
+	background-repeat: no-repeat;
+    background-position: center;
+    
+}
+#chart{
+	width:80%;
+	height:100%;
+	float:right;
+}
+#canvasUsers{
+	height:95% !important;
+	width:100% !important;
+}
+#conf{
+	width:20%;
+	float:left;
+	height:100%;
+}
+#events,#ask_event{
+	width:90%;
+	float:left;
+	height:45%;
+	
+}
+#chart_right{
+	width:50%;
+	float:right;
+	display:none;
+}
+
+
+.column{
+	float:left;
+	width:31%;
+	height:100%;
+	padding:10px;
+	display:none;
+}
+#tweets{
+	height: 100%;
+	width: 99%;
+	
+}
+	
+
+#words,#hashtags,#name_entities{
+	height: 22%;
+	width:100%;
+	
+}
+#pictures,#category{
+	height:39%;
+	width:100%;
+	float:left;
+	padding-bottom: 5%;
+}
+
+
+
+#picture{
+	height:88%;
+	width:48%;
+	float:left;
+	margin:2px;
+}
+
+#tweet{
+	
+    float: left;
+    padding: 5px;
+    width: 80%;
+}
+#profile_image{
+	padding-right:3px;
+	height:20px;
+	width:20px;
+	float:left;
+	padding-top: 5px;
+}
+.conferm{
+	height: 30px;
+    width: 30px;
+    float: right;
+    padding-top: 15px;
+    cursor: pointer;
+    pointer-events:none;
+}
+
+
+.no_found{
+	height:100%;
+	width:100%;
+	
+}
+
+.scrollbar
+{
+	float: left;
+	background: #F5F5F5;
+	overflow-y: scroll;
+}
+
+.scrollbar	::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.scrollbar::-webkit-scrollbar-thumb
+{
+	background-color: #555;
+	border: 2px solid #555555;
+}
+.title{
+    font-size: 1.50em;
+    margin: 0px;
+}
+
+#event{
+	border-radius: 7px;
+    width: 90%;
+    margin-top: 10px;
+    
+}
+#date{
+	margin-top: -2px;
+}
+
+#yes,#no,#done{
+	border-radius: 7px;
+    margin: 2px;
+    width: 50px;
+    background-color:initial;
+	
+}
+#done {
+    background-color: red;
+    color: white;
+}
+#ask_event{
+	    margin-top: 30px;
+}
+
+.word_conferm{
+	height: 20px;
+    width: 20px;
+    float: left;
+    padding-top: 3px;
+    cursor: pointer;
+    pointer-events:none;
+}
+.word{
+	float: left;
+    padding: 5px;
+    width: 50%;
+}
+
+#select_category{
+	width:100%;
+}

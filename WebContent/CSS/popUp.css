@@ -1,0 +1,57 @@
+
+#legend{
+    padding-top:3%;
+    font-family: Verdana;
+    font-size: 11px;
+    float:right;
+}
+
+#chart{
+    padding-top:1%;
+    padding-bottom:5%;
+    padding-left:3%;
+}
+
+#dropdown{
+    padding-bottom: 12px;
+    padding-left: 2px;
+}
+
+.register{
+    width:35px; 
+    float:right;
+}
+
+.visited{
+    width:35px; 
+    float:right;
+}
+
+.register:hover{  
+    cursor:pointer;
+}
+
+.addAnother{
+    width:40px; 
+    float:right;
+}
+
+.addAnother:hover{  
+    cursor:pointer;
+}
+
+.foursquare{
+    position:absolute;
+    z-index:100000;
+    right:1%;
+    bottom:1%;
+}
+
+.foursquare_small{
+    position:absolute;
+    z-index:100000;
+    right:3%;
+    bottom:5%;
+    width:50%;
+}
+

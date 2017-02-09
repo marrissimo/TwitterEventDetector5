@@ -1,0 +1,246 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17-set-2014, 16.35.59
+    Author     : Federico
+*/
+/*.leaflet-popup-content-wrapper{
+    padding: 1px;
+    text-align: left;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+}
+.leaflet-popup-content{
+    width: 350px;
+    height: 400px;
+    margin: 13px 19px;
+    line-height: 1.4;
+}*/
+#topsection{
+    width: 100%;
+    height: 170px;
+    background: aqua;
+    position: relative;
+    
+}
+#topRightSection{
+    position: relative;
+    position: absolute;
+    background-color: #EFFFFF;
+    width: 60%;
+    height: 100%;
+    left: 40%;
+}
+#pressOnCircle{
+    font-family: cursive;
+    font-size: small;
+    text-align: center;
+    margin-top: 50px;
+}
+#hashTagSection{
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 24%;
+    
+    
+}
+
+
+#hashTagSection #prevButton{
+    float: left;
+    display: inline-block;
+    left: 20%;
+    top: 10%;
+}
+#hashTagSection #nextButton{
+    float: right;
+    display: inline-block;
+    left: 20%;
+    top: 10%;
+}
+/*#hashTagSection #hastag{
+    
+    
+}*/
+ #hashTagSection p{
+    margin: 0px 10px 0px 10px;
+    width: auto;
+    height: 0px;
+}
+#topRightSection h2{
+    font-family: cursive;
+    font-size: small;
+    height: 22px;
+    /*border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;*/
+}
+#prevButtonTag{
+    float: left;
+    height: 20px;
+}
+#nextButtonTag{
+    height: 20px;
+}
+#messageSection{
+    position: relative;
+    width: 100%;
+    height: 35%;
+    top: 65%;
+    background-color: #EFFFFF;
+    
+    
+}
+#prevButtonMessage{
+    float: left;
+    height: 20px;
+}
+#nextButtonMessage{
+    height: 20px;
+}
+#messageSection #prevButtonM{
+    float: left;
+    display: inline-block;
+    left: 20%;
+    top: 10%;
+}
+#messageSection #nextButtonM{
+    float: right;
+    display: inline-block;
+    left: 20%;
+    top: 10%;
+}
+#messageSection p{
+    margin: 0px 10px 0px 10px;
+    width: auto;
+    height: 0px;
+    //font-size: 11.2px;
+}
+#messageSection h2{
+    font-family: cursive;
+    font-size: small;
+}
+#eventPosts{
+    width: 50%;
+    height: 140px;
+    background: #ffffff;
+    position: relative;
+    position: absolute;
+    right: -0%;
+}
+
+#categoryInfo{
+    width: 40%;
+    height: 90px;
+    background: #EF3200;
+    position: relative;
+    position: absolute;
+    
+}
+#categoryName{
+    width: 100%;
+    position: relative;
+    top: 75%;
+    text-align: center;
+    font-size: 16px;
+    font-family: monospace;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-style: solid;
+    border-top-color: #000000;
+    background: darkgray;
+}
+#categoryImage{
+    position: relative;
+    width: 100%;
+    margin-top: -62px;
+    height: 100%;
+    
+}
+#middleSection{
+    width: 100%;
+    height: 120px;
+    background: #777;
+    position: relative;
+}
+#photobox{
+    width: 100%;
+    height: 180px;
+    background: #ffffff;
+    position: relative;
+    padding-top: 5px;
+}
+#0Image{
+    width: 140px;
+    height: 120px;
+    background: #000000;
+    position: relative;
+    overflow: hidden;
+}
+
+#1Image{
+    width: 70px;
+    height: 60px;
+    background: #EF3200;
+    position: relative;
+    overflow: hidden;
+    margin-left: 140px;
+    margin-top: -120px;
+}
+#2Image{
+    width: 70px;
+    height: 60px;
+    background: #3a64a0;
+    margin-left: 140px;
+    position: relative;
+    overflow: hidden;
+}
+#3Image{
+    width: 140px;
+    height: 120px;
+    background: #3DA03A;
+    position: relative;
+    margin-left: 210px;
+    margin-top: -120px;
+}
+#0boxImage{
+    width: 140px;
+    height: 120px;
+    
+    position: relative;
+}
+#1boxImage{
+    width: 70px;
+    height: 60px;
+    
+    position: relative;
+    margin-left: 140px;
+    margin-top: -120px;
+}
+#2boxImage{
+    width: 70px;
+    height: 60px;
+    
+    margin-left: 140px;
+    position: relative;
+}
+#3boxImage{
+    width: 140px;
+    height: 120px;
+    
+    position: relative;
+    margin-left: 210px;
+    margin-top: -120px;
+}
+#noPhoto{
+    position: absolute;
+    margin-top: 50px;
+    font-family: cursive;
+    margin-left: 23%;
+    font-size: 15px;
+}
