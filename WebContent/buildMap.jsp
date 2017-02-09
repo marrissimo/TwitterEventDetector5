@@ -128,7 +128,8 @@ html, body, #map {height: 100%;}
     	}
     	selectDay.close();
 	}
-	
+	session.setAttribute("area", area);
+
 	session.setAttribute("eventDay", eventDay);
 	
 	// DATA min e Max selezionabile
@@ -494,7 +495,7 @@ html, body, #map {height: 100%;}
            	    }];
 			
 			
-			function createPopup(e,bounds){ 
+			function createPopup(e,bounds,area,eventDay){ 
 	       		// istanzio popup 
 	       		var popup = L.popup(
 	       			{
@@ -510,7 +511,10 @@ html, body, #map {height: 100%;}
 	       		    var users = [];
 	       		    var peaks = [];
 	       		 	var frequency = [];
-	       		 		       		 	
+	       		 	
+	       		    
+	       		 	
+	       		 	
 	       		 	var sh = bounds[0] [0] [1];
 				    var eh = bounds[0] [1] [1];
 				    var sv = bounds[0] [0] [0];
@@ -518,11 +522,20 @@ html, body, #map {height: 100%;}
 	       		 	
 	       		 // CARICO CONTENUTO POPUP :
 	       		 		// se la cella  è stata ridimensionata dobbiamo fare in modo  di ricalcolare la varianza e di conseguenza i picchi sull'area indicata dai bounds
+	       		 	
 	       		 		
+	       		  // RICALCOLO DATI SU AREA NUOVA
+	       		 
+	       		 $.ajax({
+		     			url: "buildPeak?day="+eventDay+"&area="+area+"&sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+		     			method: "GET",
+		     			dataType: "json"
+		     			});		
+	 			    
 	       		 	<%
+	       		 	
 	       		 	// CARICO DAL DB EVENTI REGISTRATI NELL'AREA
 	       		 Statement selectEvents = con.createStatement();
-	       		 
 	       		 String queryEvent="SELECT * FROM event_detected WHERE date='"+today+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'";
 				 ResultSet eventi=selectEvents.executeQuery(queryEvent);
 				 
@@ -716,8 +729,10 @@ html, body, #map {height: 100%;}
 					//if (resized){
 						//updatePeak(e,bounds);
 					//	}
-						
-         	    	createPopup(e, bounds);
+					
+					
+
+         	    	createPopup(e, bounds, <%=area%>,<%=eventDay%>);
          	    }
        		}
      		
