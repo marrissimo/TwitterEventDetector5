@@ -41,7 +41,7 @@ public class BuildPeak extends HttpServlet {
 		
 		Map<Integer, String> result = new HashMap<Integer, String>();
 
-	 	String eventDay ="04-12-2016"; //request.getParameter("day");
+	 	String eventDay ="2016-03-09"; //request.getParameter("day");
 		String area ="L"; //  request.getParameter("area");
 		
 
@@ -119,7 +119,9 @@ public class BuildPeak extends HttpServlet {
 						ResultSet isTweets = selectIsTweets
 								.executeQuery("SELECT * FROM tweets WHERE area='" + city + "' and date='" + eventDay + "'");
 	
-						if (peaks.next() || !isTweets.next()) {
+						//if (peaks.next() || !isTweets.next()) {
+						if ( !isTweets.next()) {
+
 							System.out.println("Tabella già aggiornata per il giorno " + eventDay + " di " + city);
 	
 						} else {
