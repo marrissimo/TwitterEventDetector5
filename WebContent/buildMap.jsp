@@ -440,8 +440,8 @@ html, body, #map {height: 100%;}
 
 	<script type="text/javascript">
 	
-	<%  // JAVA ALL INTERNO DI UNO SCRIPT
-		// Ciclo su ogni cella:
+	<%  
+		// Ciclo su ogni cella della griglia:
 			
         for (int i=0 ; i<tilesHorizontal ; i++)
         {
@@ -464,7 +464,6 @@ html, body, #map {height: 100%;}
                 else
                     endTileHoriz = minLongitude + (j+1)*(TILE_EDGE+spost_col);
         %>  
-        // TORNA SCRIPT
   
         // Stile Griglia ,o meglio singola cella
                var myStyle = {
@@ -473,7 +472,6 @@ html, body, #map {height: 100%;}
        				color: 'white',
        				fillOpacity: 0.2,
        				fillColor: '#6DADFC'
-       				
            		};
                
                var tiles = 
@@ -494,180 +492,318 @@ html, body, #map {height: 100%;}
            	   					 }
            	    }];
 			
-			
-			function createPopup(e,bounds,area,eventDay){ 
-	       		// istanzio popup 
-	       		var popup = L.popup(
-	       			{
-	       				maxWidth:2000,
-						maxHeight:500,
-						className:'builder'
-					}).setContent( "<%=event%>");
+			function createPopup(e,bounds,resized){ 
+				   map.closePopup();
+				// istanzio popup 
+		       		var popup = L.popup(
+		       			{
+		       				maxWidth:2000,
+							maxHeight:500,
+							className:'builder'
+						}).setContent( "<%=event%>");
 	       		
-				// apro popup
-					cella=e.target;
-				    cella.bindPopup(popup).openPopup();
-				    
 	       		    var users = [];
 	       		    var peaks = [];
 	       		 	var frequency = [];
-	       		 	
-	       		    
-	       		 	
 	       		 	
 	       		 	var sh = bounds[0] [0] [1];
 				    var eh = bounds[0] [1] [1];
 				    var sv = bounds[0] [0] [0];
 	 			    var ev = bounds[0] [2] [0];
 	       		 	
-	       		 // CARICO CONTENUTO POPUP :
-	       		 		// se la cella  è stata ridimensionata dobbiamo fare in modo  di ricalcolare la varianza e di conseguenza i picchi sull'area indicata dai bounds
-	       		 	
-	       		 		
-	       		  // RICALCOLO DATI SU AREA NUOVA
-	       		 
-	       		 $.ajax({
-		     			url: "buildPeak?day="+eventDay+"&area="+area+"&sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
-		     			method: "GET",
-		     			dataType: "json"
-		     			});		
-	 			    
-	       		 	<%
-	       		 	
-	       		 	// CARICO DAL DB EVENTI REGISTRATI NELL'AREA
-	       		 Statement selectEvents = con.createStatement();
-	       		 String queryEvent="SELECT * FROM event_detected WHERE date='"+today+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'";
-				 ResultSet eventi=selectEvents.executeQuery(queryEvent);
-				 
-				 while(eventi.next()){
-					 int timePeak=eventi.getInt("time_peak");
-					 %>
-					 $("#events").append("<button id='event' onclick='tweetsFilter("+<%=timePeak-2%>+")'>Event at "+<%=timePeak-2%>+":00</button></br>");
-					 <%}
-					 selectEvents.close();%>
-	       		 	
-	       		 $.ajax({
-		     			url: "allTextMining?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
-		     			method: "GET",
-		     			dataType: "json",
-		     			complete: function(data)
-		     			{  				
-			     					
-		     				$.each(data['responseJSON'], function(key, value) {
-		     					if(key=="hashtags"){
-			     					$.each(value, function(key, value){
-			     						$("#hashtags").append("<div class='word'>#"+key+" "+value+"</div></br>");
-			     						
-			     					});
-		     					}
-		     					if(key=="words"){
-			     					$.each(value, function(key, value){
-			     						$("#words").append("<div class='word'>"+key+" "+value+"</div></br>");
-			     						});
-		     					}
-		     					if(key=="pictures"){
-		     						var first=true;
-			     					$.each(value, function(key, value){
-			     						if(first){
-			     							$("#pictures").html("");
-			     							first=false;
-			     						}
-			     						$("#pictures").append("<img id='picture' src="+key+">");
-			     						});
-		     					}
-		     					if(key=="tweets"){
-			     					$.each(value, function(key, value){
-			     						$("#tweets").append("<div id=tweet><img id='profile_image' src="+value+">"+key+"</div></br>");
-			     						
-			     					});
-		     					}
-		     					
-		     					if(key=="names"){
-			     					$.each(value, function(key, value){
-			     						$("#name_entities").append("<div class='word'>"+key+" "+value+"</div></br>");
-			     						});
-		     					}
-			     			});
-		     			
-		     				$(".column").css("display","block");
-		     				$("#down").css("background-image","none");
-		     			}
-	       		});	
-	       		
-	       	   $.ajax({
-	         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
-	 			    method: "GET",
-	 				dataType: "json",
-		     		complete:function(data){
-		     			$.each(data['responseJSON'], function(key, value) {
-		     				
-		     				if(key=="peaks"){
-		     					$.each(value, function(key, value){
-		     						var peak=value+2;
-		     						if(peak>23){
-		     							peak=23;
-		     						}
-		     						$("#events").append("<button id='event' onclick='tweetsFilter("+value+")'>Event at "+peak+":00</button></br>");	     						
-		     					});
-	     					}
-		     			})
-		     		}
-	         	
-		    })
-	        		    
-	       		    $.ajax({
-	  		            		url: "popupBuilder?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
-	  		    			    method: "GET",
-	  		    				dataType: "json",
-	  			     			complete:function(data){
-	  			     				
-	  			     				$.each(data['responseJSON'], function(key, value) {
-	  			     					if(key=="timeSeries"){
-	  			     						users.push(0);
-	  			     						users.push(0);
-	  				     					$.each(value, function(key, value){
-	  				     						users.push(value);
-	  				     						});
-	  				     					users.push(0);
-	  				     					users.push(0);
-	  				     					
-	  				     					// RISOLTO ERRORE  NEL GRAFICO DEI PICCHI -> ORA  TRASLATA
-	  				     					for	(i = 2; i < 25; i++) {
-	  				     					 if ((users[i]-users[i-2])>=2 && (users[i]-users[i+2])>=2) {
-	  				     						peaks.push(i);
-	  				     					    i=i+2;
-	  				     					    }
-	  				     					} 
-	  				     					
-	  				     					
-	  				     					var lineChartData = {
-	  				     							labels : ["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00",
-	  				     							          "08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00",
-	  				     							          "16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"],
-	  				     							datasets : [
-	  				     								{
-	  				     									label: "Users by time",
-	  				     									fillColor : "rgba(151,187,205,0.2)",
-	  				     									strokeColor : "rgba(151,187,205,1)",
-	  				     									pointColor : "rgba(151,187,205,1)",
-	  				     									pointStrokeColor : "#fff",
-	  				     									pointHighlightFill : "#fff",
-	  				     									pointHighlightStroke : "rgba(151,187,205,1)",
-	  				     									data : [users[2],users[3],users[4],users[5],users[6],users[7],users[8],
-	  				     									        users[9],users[10],users[11],users[12],users[13],users[15],users[13],
-	  				     									        users[16],users[17],users[18],users[19],users[20],users[21],users[22],
-	  				     									        users[23],users[24],users[25]]
-	  				     								}
-	  				     							]
-	  				     		   		 
-	  				     						}
-	  				     		   		    getChart(lineChartData,"canvasUsers");
-	  			     					}
-	  			     					
-	  			     					});
-	  			     				$("#up").css("background-image","none");
-	  			     			}
-	       		    })
+	       		  // CARICO CONTENUTO POPUP :
+	       		  if (resized==1){
+	         		  // RICALCOLO DATI SU AREA NUOVA :
+
+		       		 $.ajax({
+			     			url: "buildPeak?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+			     			method: "GET",
+			     			dataType: "json",
+			     			complete: function(data){
+			     				<%
+				       		 	
+				       		 	// CARICO DAL DB resized i Picchi appena trovati
+				       		 Statement selectEvents_r = con.createStatement();
+				       		 String queryEvent_r="SELECT * FROM event_resized WHERE date='"+eventDay+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'";
+							 ResultSet eventi_r=selectEvents_r.executeQuery(queryEvent_r);
+							 %>
+							 // apro popup
+								cella=e.target;
+							    cella.bindPopup(popup).openPopup();
+							 <%
+							 
+							 while(eventi_r.next()){
+								 int timePeak=eventi_r.getInt("time_peak");
+								 %>
+								 $("#events").append("<button id='event' onclick='tweetsFilter("+<%=timePeak%>+")'>Event at "+<%=timePeak%>+":00</button></br>");
+								 <%}
+								 selectEvents_r.close();%>
+								    
+				       		 $.ajax({
+					     			url: "allTextMining?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+					     			method: "GET",
+					     			dataType: "json",
+					     			complete: function(data)
+					     			{  				
+						     					
+					     				$.each(data['responseJSON'], function(key, value) {
+					     					if(key=="hashtags"){
+						     					$.each(value, function(key, value){
+						     						$("#hashtags").append("<div class='word'>#"+key+" "+value+"</div></br>");
+						     						
+						     					});
+					     					}
+					     					if(key=="words"){
+						     					$.each(value, function(key, value){
+						     						$("#words").append("<div class='word'>"+key+" "+value+"</div></br>");
+						     						});
+					     					}
+					     					if(key=="pictures"){
+					     						var first=true;
+						     					$.each(value, function(key, value){
+						     						if(first){
+						     							$("#pictures").html("");
+						     							first=false;
+						     						}
+						     						$("#pictures").append("<img id='picture' src="+key+">");
+						     						});
+					     					}
+					     					if(key=="tweets"){
+						     					$.each(value, function(key, value){
+						     						$("#tweets").append("<div id=tweet><img id='profile_image' src="+value+">"+key+"</div></br>");
+						     						
+						     					});
+					     					}
+					     					
+					     					if(key=="names"){
+						     					$.each(value, function(key, value){
+						     						$("#name_entities").append("<div class='word'>"+key+" "+value+"</div></br>");
+						     						});
+					     					}
+						     			});
+					     			
+					     				$(".column").css("display","block");
+					     				$("#down").css("background-image","none");
+					     			}
+				       		});	
+				       		
+				       	   $.ajax({
+				         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+				 			    method: "GET",
+				 				dataType: "json",
+					     		complete:function(data){
+					     			$.each(data['responseJSON'], function(key, value) {
+					     				
+					     				if(key=="peaks"){
+					     					$.each(value, function(key, value){
+					     						var peak=value+2;
+					     						if(peak>23){
+					     							peak=23;
+					     						}
+					     						$("#events").append("<button id='event' onclick='tweetsFilter("+value+")'>Event at "+peak+":00</button></br>");	     						
+					     					});
+				     					}
+					     			})
+					     		}
+				         	
+					    })
+				        		    
+				       		    $.ajax({
+				  		            		url: "popupBuilder?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+				  		    			    method: "GET",
+				  		    				dataType: "json",
+				  			     			complete:function(data){
+				  			     				
+				  			     				$.each(data['responseJSON'], function(key, value) {
+				  			     					if(key=="timeSeries"){
+				  			     						users.push(0);
+				  			     						users.push(0);
+				  				     					$.each(value, function(key, value){
+				  				     						users.push(value);
+				  				     						});
+				  				     					users.push(0);
+				  				     					users.push(0);
+				  				     					
+				  				     					// RISOLTO ERRORE  NEL GRAFICO DEI PICCHI -> ORA  TRASLATA
+				  				     					for	(i = 2; i < 25; i++) {
+				  				     					 if ((users[i]-users[i-2])>=2 && (users[i]-users[i+2])>=2) {
+				  				     						peaks.push(i);
+				  				     					    i=i+2;
+				  				     					    }
+				  				     					} 
+				  				     					
+				  				     					
+				  				     					var lineChartData = {
+				  				     							labels : ["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00",
+				  				     							          "08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00",
+				  				     							          "16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"],
+				  				     							datasets : [
+				  				     								{
+				  				     									label: "Users by time",
+				  				     									fillColor : "rgba(151,187,205,0.2)",
+				  				     									strokeColor : "rgba(151,187,205,1)",
+				  				     									pointColor : "rgba(151,187,205,1)",
+				  				     									pointStrokeColor : "#fff",
+				  				     									pointHighlightFill : "#fff",
+				  				     									pointHighlightStroke : "rgba(151,187,205,1)",
+				  				     									data : [users[2],users[3],users[4],users[5],users[6],users[7],users[8],
+				  				     									        users[9],users[10],users[11],users[12],users[13],users[15],users[13],
+				  				     									        users[16],users[17],users[18],users[19],users[20],users[21],users[22],
+				  				     									        users[23],users[24],users[25]]
+				  				     								}
+				  				     							]
+				  				     		   		 
+				  				     						}
+				  				     		   		    getChart(lineChartData,"canvasUsers");
+				  			     					}
+				  			     					});
+				  			     				$("#up").css("background-image","none");
+				  			     			}
+				       		    })
+				       		}});
+	       		 }
+	       		  else
+		       	 {	 	<%
+		       		 	// CARICO DAL DB EVENTI REGISTRATI NELL'AREA
+	 	       		 Statement selectEvents = con.createStatement();
+	 	       		 
+	 	       		 String queryEvent="SELECT * FROM event_detected WHERE date='"+today+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'";
+	 				 ResultSet eventi=selectEvents.executeQuery(queryEvent);
+	 				 %>
+	                     cella=e.target;
+	 				    cella.bindPopup(popup).openPopup();
+	                         <% 
+	                         
+	 				 while(eventi.next()){
+	 					 int timePeak=eventi.getInt("time_peak");
+	 					 %>
+	 					 $("#events").append("<button id='event' onclick='tweetsFilter("+<%=timePeak%>+")'>Event at "+<%=timePeak%>+":00</button></br>");
+	 					 <%}
+	 					 selectEvents.close();%>
+	 	       		 	
+	 	       		 $.ajax({
+	 		     			url: "allTextMining?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+	 		     			method: "GET",
+	 		     			dataType: "json",
+	 		     			complete: function(data)
+	 		     			{  				
+	 			     					
+	 		     				$.each(data['responseJSON'], function(key, value) {
+	 		     					if(key=="hashtags"){
+	 			     					$.each(value, function(key, value){
+	 			     						$("#hashtags").append("<div class='word'>#"+key+" "+value+"</div></br>");
+	 			     						
+	 			     					});
+	 		     					}
+	 		     					if(key=="words"){
+	 			     					$.each(value, function(key, value){
+	 			     						$("#words").append("<div class='word'>"+key+" "+value+"</div></br>");
+	 			     						});
+	 		     					}
+	 		     					if(key=="pictures"){
+	 		     						var first=true;
+	 			     					$.each(value, function(key, value){
+	 			     						if(first){
+	 			     							$("#pictures").html("");
+	 			     							first=false;
+	 			     						}
+	 			     						$("#pictures").append("<img id='picture' src="+key+">");
+	 			     						});
+	 		     					}
+	 		     					if(key=="tweets"){
+	 			     					$.each(value, function(key, value){
+	 			     						$("#tweets").append("<div id=tweet><img id='profile_image' src="+value+">"+key+"</div></br>");
+	 			     						
+	 			     					});
+	 		     					}
+	 		     					
+	 		     					if(key=="names"){
+	 			     					$.each(value, function(key, value){
+	 			     						$("#name_entities").append("<div class='word'>"+key+" "+value+"</div></br>");
+	 			     						});
+	 		     					}
+	 			     			});
+	 		     			
+	 		     				$(".column").css("display","block");
+	 		     				$("#down").css("background-image","none");
+	 		     			}
+	 	       		});	
+	 	       		
+	 	       	   $.ajax({
+	 	         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+	 	 			    method: "GET",
+	 	 				dataType: "json",
+	 		     		complete:function(data){
+	 		     			$.each(data['responseJSON'], function(key, value) {
+	 		     				
+	 		     				if(key=="peaks"){
+	 		     					$.each(value, function(key, value){
+	 		     						var peak=value+2;
+	 		     						if(peak>23){
+	 		     							peak=23;
+	 		     						}
+	 		     						$("#events").append("<button id='event' onclick='tweetsFilter("+value+")'>Event at "+peak+":00</button></br>");	     						
+	 		     					});
+	 	     					}
+	 		     			})
+	 		     		}
+	 	         	
+	 		    })
+	 	        		    
+	 	       		    $.ajax({
+	 	  		            		url: "popupBuilder?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+	 	  		    			    method: "GET",
+	 	  		    				dataType: "json",
+	 	  			     			complete:function(data){
+	 	  			     				
+	 	  			     				$.each(data['responseJSON'], function(key, value) {
+	 	  			     					if(key=="timeSeries"){
+	 	  			     						users.push(0);
+	 	  			     						users.push(0);
+	 	  				     					$.each(value, function(key, value){
+	 	  				     						users.push(value);
+	 	  				     						});
+	 	  				     					users.push(0);
+	 	  				     					users.push(0);
+	 	  				     					
+	 	  				     					// RISOLTO ERRORE  NEL GRAFICO DEI PICCHI -> ORA  TRASLATA
+	 	  				     					for	(i = 2; i < 25; i++) {
+	 	  				     					 if ((users[i]-users[i-2])>=2 && (users[i]-users[i+2])>=2) {
+	 	  				     						peaks.push(i);
+	 	  				     					    i=i+2;
+	 	  				     					    }
+	 	  				     					} 
+	 	  				     					
+	 	  				     					
+	 	  				     					var lineChartData = {
+	 	  				     							labels : ["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00",
+	 	  				     							          "08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00",
+	 	  				     							          "16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"],
+	 	  				     							datasets : [
+	 	  				     								{
+	 	  				     									label: "Users by time",
+	 	  				     									fillColor : "rgba(151,187,205,0.2)",
+	 	  				     									strokeColor : "rgba(151,187,205,1)",
+	 	  				     									pointColor : "rgba(151,187,205,1)",
+	 	  				     									pointStrokeColor : "#fff",
+	 	  				     									pointHighlightFill : "#fff",
+	 	  				     									pointHighlightStroke : "rgba(151,187,205,1)",
+	 	  				     									data : [users[2],users[3],users[4],users[5],users[6],users[7],users[8],
+	 	  				     									        users[9],users[10],users[11],users[12],users[13],users[15],users[13],
+	 	  				     									        users[16],users[17],users[18],users[19],users[20],users[21],users[22],
+	 	  				     									        users[23],users[24],users[25]]
+	 	  				     								}
+	 	  				     							]
+	 	  				     		   		 
+	 	  				     						}
+	 	  				     		   		    getChart(lineChartData,"canvasUsers");
+	 	  			     					}
+	 	  			     					
+	 	  			     					});
+	 	  			     				$("#up").css("background-image","none");
+	 	  			     			}
+	 	       		    })
+		       	 }
        		    }
                
             // EVIDENZIA RIQUADRO al Passaggio del Mouse - > BLUE
@@ -684,22 +820,22 @@ html, body, #map {height: 100%;}
        		    if (!L.Browser.ie && !L.Browser.opera)
        		     { layer.bringToFront();}
        		 }
-       		
-      		// Carica Grafico tweets per  ora del pop-up 
+
+            // Carica Grafico tweets per  ora del pop-up 
            function getChart(lineChartData,place){
           			var ctx = document.getElementById(place).getContext("2d");
  					window.myLine = new Chart(ctx).Line(lineChartData, {responsive: true}); 
-          	}
+          		}
 
-       		
        		function click(e) {
-			
-       		    cella = e.target
+				var resized;
+       		    cella = e.target;
 				var punti = cella.getBounds().toBBoxString().split(',');
 
        		    // se attiva la Resize mode, la  cella cliccata  diventa modificabile e col bordo rosso 
 				if (document.getElementById("resize").checked)
-				{
+				{	
+					
 					cella.bringToFront();
 					cella.editing.enable();
 					
@@ -711,46 +847,38 @@ html, body, #map {height: 100%;}
 					
 					}		
 				else 
-				{  
+				{  	resized=0;
+
 					cella.editing.disable();
-					
 					var punti2 = cella.getBounds().toBBoxString().split(',');
-						
 					
 					s_lat = cella.getBounds().toBBoxString().split(',') [1];
 					s_lon = cella.getBounds().toBBoxString().split(',') [0];
 					e_lat = cella.getBounds().toBBoxString().split(',') [3];
 					e_lon = cella.getBounds().toBBoxString().split(',') [2];
 					
+					
 					bounds=[[ [s_lon,s_lat],[s_lon,e_lat],[e_lon,e_lat],[e_lon,s_lat] ]];
+					edge=0.006001;
+					if ( Math.abs(e_lat-s_lat)>edge || Math.abs(e_long-s_long>edge)  )
+						{resized=1;}
+					if(Math.abs(e_lat-s_lat)<=edge && Math.abs(e_long-s_long)<=edge)
+						{resized=0;}
 					
-					
-					//document.write(punti);
-					//if (resized){
-						//updatePeak(e,bounds);
-					//	}
-					
-					
+					createPopup(e, bounds, resized);
 
-         	    	createPopup(e, bounds, <%=area%>,<%=eventDay%>);
+         	    	
          	    }
        		}
      		
-       		
-       		
-       		//function updateArea(bounds){
-			
-			//}
-			
-       		
-       		
        		var geojson;
          	function resetHighlight(e) { geojson.resetStyle(e.target); }
+         	
        		function onEachFeature(feature, layer) {
        			layer.on({
        				mouseover: highlightFeature,
        				mouseout: resetHighlight,
-       				click:  click,
+       				click:  click
        			});
        		}
        		
@@ -766,8 +894,7 @@ html, body, #map {height: 100%;}
 	</script>
 	<%
 		} //chiude if (cities.next()) linea 416
-		
-	%>
+		  %>
 	
 	
 	<script>

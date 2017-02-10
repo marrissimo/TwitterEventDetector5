@@ -39,19 +39,18 @@ public class BuildPeak extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+	    HttpSession session=request.getSession();
+
 		Map<Integer, String> result = new HashMap<Integer, String>();
-
-	 	String eventDay ="2016-03-09"; //request.getParameter("day");
-		String area ="L"; //  request.getParameter("area");
+	    String eventDay=(String) session.getAttribute("eventDay");
+		if (eventDay==null){
+		    eventDay ="2016-03-09"; 
+		}
 		
-
-		// String fromDate=request.getParameter("fromDate");
-		// String toDate=request.getParameter("toDate");
-		// String fromVariance=request.getParameter("fromVariance");
-		// String toVariance=request.getParameter("toVariance");
-		// String dtS=request.getParameter("dt");
-		// String deltaS=request.getParameter("delta");
-
+	    String area=(String) session.getAttribute("area");
+	    if (area==null)
+	    	area ="L"; //  request.getParameter("area");
+		
 	    String startTileHorizS=request.getParameter("sth");
 		String endTileHorizS=request.getParameter("eth");
 		String startTileVertS=request.getParameter("stv");
@@ -61,16 +60,6 @@ public class BuildPeak extends HttpServlet {
 		{
 			double dt = 2.0;
 			double delta = 2.0;
-			/*	
-			double sh = 52;
-			double eh = 52.6 ;
-			double sv = 0;
-			double ev = 0.6;
-	
-		double sh = (double) request.getAttribute("sh");
-			double eh = (double) request.getAttribute("eh");
-			double sv = (double) request.getAttribute("sv");
-			double ev = (double) request.getAttribute("ev");*/
 			
 			double sh = (double) Double.parseDouble(startTileHorizS);
 			double sv = (double) Double.parseDouble(startTileVertS);
@@ -79,7 +68,7 @@ public class BuildPeak extends HttpServlet {
 	
 			response.setContentType("application/json");
 	
-			// UPDATE VARIANZA Nella zona
+			// AGGIORNO VARIANZA
 			try {
 				updateVariance(area, sh, sv, eh, ev);
 			} catch (IOException | SQLException e1) {
@@ -186,6 +175,7 @@ public class BuildPeak extends HttpServlet {
 	
 							// RESTITUISCE UNA LISTA DI INTERI CHE INDICANO LE ORE
 							// DEI PICCHI, SE VUOTA NO PICCHI
+							
 							List<Integer> peaksList = peak_detection(peaksDetection, 2.0);
 							System.out.println(distance);
 	
@@ -243,14 +233,14 @@ public class BuildPeak extends HttpServlet {
 									// TUTTI GLI EVENTI GIA' RIVELATI in quel punto
 									// LAT,LON e SALAVATI NEL DB
 									Statement selectIsPresent = con.createStatement();
-									String isPresentQuery = "select * from event_detected where date = '" + eventDay
+									String isPresentQuery = "select * from event_resized where date = '" + eventDay
 											+ "' AND latitude='" + lat + "' AND longitude='" + lon + "'";
 									ResultSet isPresent = selectIsPresent.executeQuery(isPresentQuery);
 	
 									// NUOVO PICCO: LO INSERISCO in una nuova tabella event_resized
 									
-//									if (!isPresent.next() && lat != 0.0 && lon != 0.0) {
-									if (lat != 0.0 && lon != 0.0) {
+									if (!isPresent.next() && lat != 0.0 && lon != 0.0) {
+									//if (lat != 0.0 && lon != 0.0) {
 
 									System.out.println("Nuovo picco");
 										
