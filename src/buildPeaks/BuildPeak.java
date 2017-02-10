@@ -247,10 +247,13 @@ public class BuildPeak extends HttpServlet {
 											+ "' AND latitude='" + lat + "' AND longitude='" + lon + "'";
 									ResultSet isPresent = selectIsPresent.executeQuery(isPresentQuery);
 	
-									// NUOVO PICCO: LO INSERISCO in una nuova
-									// tabella di resized
-									if (!isPresent.next() && lat != 0.0 && lon != 0.0) {
-										System.out.println("Nuovo picco");
+									// NUOVO PICCO: LO INSERISCO in una nuova tabella event_resized
+									
+//									if (!isPresent.next() && lat != 0.0 && lon != 0.0) {
+									if (lat != 0.0 && lon != 0.0) {
+
+									System.out.println("Nuovo picco");
+										
 										// String insertEvent="INSERT IGNORE INTO
 										// event_detected (id, area, date,
 										// max_latitude, max_longitude,
@@ -259,6 +262,7 @@ public class BuildPeak extends HttpServlet {
 										// distance,from_date,to_date,dt,delta,time_peak,up)
 										// VALUES
 										// ('','"+city+"','"+eventDay+"','"+endTileHoriz+"','"+endTileVert+"','"+startTileHoriz+"','"+startTileVert+"','"+lat+"','"+lon+"','"+distance+"','2015-12-21','"+eventDay+"',2,2,'"+peak+"',0);";
+										
 										String insertEvent = "INSERT IGNORE INTO event_resized (id, area, date, max_latitude, max_longitude, min_latitude, min_longitude, latitude, longitude, distance,from_date,to_date,dt,delta,time_peak,up) VALUES ('','"
 												+ city + "','" + eventDay + "','" + eh + "','" + ev + "','" + sh + "','"
 												+ sv + "','" + lat + "','" + lon + "','" + distance + "','2015-12-21','"
@@ -266,13 +270,18 @@ public class BuildPeak extends HttpServlet {
 	
 										System.out.println(insertEvent);
 										Statement insertPeakStatement = con.createStatement();
+										
 										insertPeakStatement.executeUpdate(insertEvent);
 										insertPeakStatement.close();
 									}
+									else{
+										System.out.println("Nessun nuovo picco");
+
+									}
 									selectIsPresent.close();
 								}
-							} else {// SE PRESENTE NEL DB, AGGIORNO PICCO -> up=1
-								System.out.println("--");
+							} else {
+								System.out.println("Nessun picco rilevato");
 								result.put(0, "Nessun picco rilevato");
 	
 							}

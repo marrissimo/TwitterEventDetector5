@@ -273,7 +273,7 @@ html, body, #map {height: 100%;}
 				// ECCEZIONE ?? se la media è 0? prendiamo a caso  da  un giorno????
 				if(media==0.0){
 					Statement selectNewMedia = con.createStatement();
-					ResultSet nMedia=selectNewMedia.executeQuery("SELECT * FROM variance WHERE date='2016-04-12' and area='"+area+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'");
+					ResultSet nMedia=selectNewMedia.executeQuery("SELECT * FROM variance WHERE date='2016-03-09' and area='"+area+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'");
 					if(nMedia.next()){
 						media=nMedia.getDouble("media");
 						variance=nMedia.getDouble("variance");
@@ -542,7 +542,7 @@ html, body, #map {height: 100%;}
 				 while(eventi.next()){
 					 int timePeak=eventi.getInt("time_peak");
 					 %>
-					 $("#events").append("<button id='event' onclick='tweetsFilter("+<%=timePeak%>+")'>Event at "+<%=timePeak%>+":00</button></br>");
+					 $("#events").append("<button id='event' onclick='tweetsFilter("+<%=timePeak-2%>+")'>Event at "+<%=timePeak-2%>+":00</button></br>");
 					 <%}
 					 selectEvents.close();%>
 	       		 	
