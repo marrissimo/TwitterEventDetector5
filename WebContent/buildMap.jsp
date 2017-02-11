@@ -523,6 +523,7 @@ html, body, #map {height: 100%;}
 	       		  if (resized==true){
 	         		  // RICALCOLO DATI SU AREA NUOVA :
 					 db="event_resized";
+	 			    alert("Attendere prego: inizio individuazione eventi nell'area selezionata.");
 		       		 $.ajax({
 			     			url: "buildPeak?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
 			     			method: "GET",
@@ -609,7 +610,7 @@ html, body, #map {height: 100%;}
 					     						if(peak>23){
 					     							peak=23;
 					     						}
-					     						$("#events").append("<button id='event' onclick='tweetsFilter("+value+")'>Event at "+peak+":00</button></br>");	     						
+					     						$("#events").append("<button id='event' onclick='tweetsFilter("+String(value-2)+")'>Event at "+String(peak-2)+":00</button></br>");	     						
 					     					});
 				     					}
 					     			})
