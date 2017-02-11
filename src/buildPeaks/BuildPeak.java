@@ -177,13 +177,13 @@ public class BuildPeak extends HttpServlet {
 							// DEI PICCHI, SE VUOTA NO PICCHI
 							
 							List<Integer> peaksList = peak_detection(peaksDetection, 2.0);
-							System.out.println(distance);
+							//System.out.println(distance);
 	
 							if (distance >= 1 && !peaksList.isEmpty()) {
 								result.put(0, "Almeno un picco rilevato");
 	
-								System.out.println("Distanza " + distance + " Coordinate tra " + sh + "," + sv + " e " + eh
-										+ "," + ev);
+								//System.out.println("Distanza " + distance + " Coordinate tra " + sh + "," + sv + " e " + eh
+								//		+ "," + ev);
 	
 								// PER OGNI PICCO, DEFNISCE ORA INIZIO E ORA FINE
 								// PICCO, e carica i tweet nell'intervallo di tempo
@@ -242,7 +242,7 @@ public class BuildPeak extends HttpServlet {
 									if (!isPresent.next() && lat != 0.0 && lon != 0.0) {
 									//if (lat != 0.0 && lon != 0.0) {
 
-									System.out.println("Nuovo picco");
+									System.out.println("Nuovo picco !");
 										
 										// String insertEvent="INSERT IGNORE INTO
 										// event_detected (id, area, date,
@@ -265,7 +265,7 @@ public class BuildPeak extends HttpServlet {
 										insertPeakStatement.close();
 									}
 									else{
-										System.out.println("Nessun nuovo picco");
+										System.out.println("Picco già nel Db");
 
 									}
 									selectIsPresent.close();
@@ -316,7 +316,7 @@ public class BuildPeak extends HttpServlet {
 
 		while (cities.next()) {
 
-			System.out.println("inizio aggiornamento " + area);
+			System.out.println("Inizio aggiornamento varianza di " + area+".");
 
 			Statement selectPeak;
 			Statement selectNDays;
@@ -381,7 +381,7 @@ public class BuildPeak extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			System.out.println("Fine aggiornamento " + area);
+			System.out.println("Fine aggiornamento varianza di " + area +".");
 
 		}
 	}

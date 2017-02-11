@@ -87,7 +87,7 @@ public class AllTextMining extends HttpServlet {
 	    	
 			Statement selectTweetsInRange = con.createStatement();
 			String tweetsQuery="SELECT * FROM `tweets` WHERE latitude>="+startTileHoriz+" and longitude>="+startTileVert+" and latitude<"+endTileHoriz+" and longitude<"+endTileVert+" and date='"+eventDay+"'";
-			System.out.println(tweetsQuery);
+			//System.out.println(tweetsQuery);
 			ResultSet tweetsInRange=selectTweetsInRange.executeQuery(tweetsQuery);
 		
 			List<List<String>> hashtag=new ArrayList<List<String>>();
@@ -103,7 +103,7 @@ public class AllTextMining extends HttpServlet {
 		    Map<String, Object> entitiesList=new LinkedHashMap<String, Object>();
 			
 			 if(tweetsInRange.next()){
-				 System.out.println("Non ci sono tweets disponibili");
+				 //System.out.println("Non ci sono tweets disponibili");
 			 }
 			 tweetsInRange.beforeFirst();
 			
@@ -250,7 +250,7 @@ public class AllTextMining extends HttpServlet {
 
 		    }else{
 		    	result.put("hashtags", hashTagList);
-		    	System.out.println("No hashtags trovati");
+		    	//System.out.println("No hashtags trovati");
 		    }
 		
 		    if(!wordsList.isEmpty()){
@@ -278,7 +278,7 @@ public class AllTextMining extends HttpServlet {
 		    	 for (List<String> namedEntity : namedEntitiesList) {
 				    	for (String name : namedEntity) {
 				    		int nNames=countWord(namedEntitiesList,name);
-				    		System.out.println(name+" "+nNames);
+				    		//System.out.println(name+" "+nNames);
 				    		unsortedNamedEntities.put(name, nNames);
 				    		}
 				 }

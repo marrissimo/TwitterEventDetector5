@@ -93,7 +93,7 @@ public class TweetsFilter extends HttpServlet {
 		try {
 			selectTweetsInRange = con.createStatement();
 		String tweetsQuery="SELECT * FROM `tweets` WHERE time>='"+timeMin+"' AND time<='"+timeMax+"' AND latitude>="+startTileHoriz+" and longitude>="+startTileVert+" and latitude<"+endTileHoriz+" and longitude<"+endTileVert+" and date='"+eventDay+"'";
-		System.out.println(tweetsQuery);
+		//System.out.println(tweetsQuery);
 		ResultSet tweetsInRange=selectTweetsInRange.executeQuery(tweetsQuery);
 		List<List<String>> hashtag=new ArrayList<List<String>>();
 		List<List<String>> wordsList= new ArrayList<List<String>>();
@@ -110,7 +110,7 @@ public class TweetsFilter extends HttpServlet {
 			 String message=tweetsInRange.getString("message");
 			 Integer time=tweetsInRange.getInt("time");
 
-			 System.out.println(message+" "+time);
+			 //System.out.println(message+" "+time);
 	    	 List<String> hashtagTemp=new ArrayList<String>();
 	    	 List<String> username=new ArrayList<String>();
 	    	 List<String> URLsTemp=new ArrayList<String>();
@@ -248,7 +248,7 @@ public class TweetsFilter extends HttpServlet {
 
 	    }else{
 	    	result.put("hashtags", hashTagList);
-	    	System.out.println("No hashtags trovati");
+	    	//System.out.println("No hashtags trovati");
 	    }
 	
 	    if(!wordsList.isEmpty()){
@@ -279,7 +279,7 @@ public class TweetsFilter extends HttpServlet {
 	    	 for (List<String> namedEntity : namedEntitiesList) {
 			    	for (String name : namedEntity) {
 			    		int nNames=countWord(namedEntitiesList,name);
-			    		System.out.println(name+" "+nNames);
+			    		//System.out.println(name+" "+nNames);
 			    		unsortedNamedEntities.put(name, nNames);
 			    		}
 			 }
