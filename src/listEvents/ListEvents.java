@@ -39,6 +39,8 @@ public class ListEvents extends HttpServlet {
 		String startTileVertS=request.getParameter("stv");
 		String endTileVertS=request.getParameter("etv");
 		
+		String db=request.getParameter("db");
+		
 		session.setAttribute("sth", startTileHorizS);
 		session.setAttribute("eth", endTileHorizS);
 		session.setAttribute("stv", startTileVertS);
@@ -53,7 +55,7 @@ public class ListEvents extends HttpServlet {
 	  
 	    try{
 	    	 
-	         String peaksQuery="SELECT * FROM event_detected WHERE date='"+eventDay
+	         String peaksQuery="SELECT * FROM "+db+" WHERE date='"+eventDay
 	        		 +"' and min_latitude='"+startTileHoriz+"' AND max_latitude='"+endTileHoriz
 	        		 +"' AND min_longitude='"+startTileVert+"' AND max_longitude='"+endTileVert+"'";
 	         

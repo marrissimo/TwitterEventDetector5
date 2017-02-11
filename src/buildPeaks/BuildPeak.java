@@ -265,7 +265,7 @@ public class BuildPeak extends HttpServlet {
 										insertPeakStatement.close();
 									}
 									else{
-										System.out.println("Nessun nuovo picco");
+										System.out.println("Picco già nel Db");
 
 									}
 									selectIsPresent.close();

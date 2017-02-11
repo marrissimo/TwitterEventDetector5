@@ -477,22 +477,27 @@ html, body, #map {height: 100%;}
                var tiles = 
                [{
            	    "type": "Feature",
-           	 	"properties": {
+           	 	"properties":
+           	 		{
            	 		"startTileVert": <%=startTileVert%>,
            	 		"startTileHoriz":<%=startTileHoriz%>,
            	 		"endTileVert":<%=endTileVert%>,
-           	 		"endTileHoriz":<%=endTileHoriz%>},
-           	        "geometry": {
+           	 		"endTileHoriz":<%=endTileHoriz%>
+           	 		},
+           	 	
+           	    "geometry": 
+           	        {
            	      	  "type": "Polygon",
            	      	  "coordinates":[ [
            	            [<%=startTileHoriz%>,<%=startTileVert%>],
            	         	[ <%=endTileHoriz%>,<%=startTileVert%>],
            	         	[<%=endTileHoriz%>,<%=endTileVert%>],
            	         	[<%=startTileHoriz%>,<%=endTileVert%>]  ]]
-           	   					 }
+           	   		 }
            	    }];
 			
 			function createPopup(e,bounds,resized){ 
+			
 				   map.closePopup();
 				// istanzio popup 
 		       		var popup = L.popup(
@@ -510,11 +515,14 @@ html, body, #map {height: 100%;}
 				    var eh = bounds[0] [1] [1];
 				    var sv = bounds[0] [0] [0];
 	 			    var ev = bounds[0] [2] [0];
+	 			    
+	 			    var db="";
 	       		 	
+	 			    
 	       		  // CARICO CONTENUTO POPUP :
-	       		  if (resized==1){
+	       		  if (resized==true){
 	         		  // RICALCOLO DATI SU AREA NUOVA :
-
+					 db="event_resized";
 		       		 $.ajax({
 			     			url: "buildPeak?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
 			     			method: "GET",
@@ -527,6 +535,7 @@ html, body, #map {height: 100%;}
 				       		 String queryEvent_r="SELECT * FROM event_resized WHERE date='"+eventDay+"' and max_latitude='"+maxLatitude+"' AND max_longitude='"+maxLongitude+"' AND min_latitude='"+minLatitude+"' AND min_longitude='"+minLongitude+"'";
 							 ResultSet eventi_r=selectEvents_r.executeQuery(queryEvent_r);
 							 %>
+							
 							 // apro popup
 								cella=e.target;
 							    cella.bindPopup(popup).openPopup();
@@ -588,7 +597,7 @@ html, body, #map {height: 100%;}
 				       		});	
 				       		
 				       	   $.ajax({
-				         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+				         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev+"&db="+db, 
 				 			    method: "GET",
 				 				dataType: "json",
 					     		complete:function(data){
@@ -663,7 +672,10 @@ html, body, #map {height: 100%;}
 				       		}});
 	       		 }
 	       		  else
-		       	 {	 	<%
+		       	 {	 db="event_detected";
+
+		       	 
+		       	 <%
 		       		 	// CARICO DAL DB EVENTI REGISTRATI NELL'AREA
 	 	       		 Statement selectEvents = con.createStatement();
 	 	       		 
@@ -730,25 +742,25 @@ html, body, #map {height: 100%;}
 	 	       		});	
 	 	       		
 	 	       	   $.ajax({
-	 	         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
+	 	         		url: "listEvents?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev+"&db="+db, 
 	 	 			    method: "GET",
 	 	 				dataType: "json",
 	 		     		complete:function(data){
-	 		     			$.each(data['responseJSON'], function(key, value) {
+	 		     			$.each(data['responseJSON'], function(key, value) 
+	 		     			{
 	 		     				
 	 		     				if(key=="peaks"){
-	 		     					$.each(value, function(key, value){
-	 		     						var peak=value+2;
-	 		     						if(peak>23){
-	 		     							peak=23;
-	 		     						}
-	 		     						$("#events").append("<button id='event' onclick='tweetsFilter("+value+")'>Event at "+peak+":00</button></br>");	     						
-	 		     					});
-	 	     					}
-	 		     			})
-	 		     		}
+	 		     					$.each(value, function(key, value)
+	 		     						{
+		 		     						var peak=value+2;
+		 		     						if(peak>23){peak=23;}
+		 		     						$("#events").append("<button id='event' onclick='tweetsFilter("+value+")'>Event at "+peak+":00</button></br>");	     						
+		 		     					});
+	 	     						}
+	 		     				})
+	 		     			}
 	 	         	
-	 		    })
+	 		    		})
 	 	        		    
 	 	       		    $.ajax({
 	 	  		            		url: "popupBuilder?sth="+sh+"&eth="+eh+"&stv="+sv+"&etv="+ev, 
@@ -805,12 +817,15 @@ html, body, #map {height: 100%;}
 	 	       		    })
 		       	 }
        		    }
+//________________________________________________________________________________________________________________
                
-            // EVIDENZIA RIQUADRO al Passaggio del Mouse - > BLUE
+ // EVIDENZIA RIQUADRO al Passaggio del Mouse - > BLUE
+ 
        		function highlightFeature(e)
        		 {
        		    var layer = e.target;
-       		    layer.setStyle({
+       		    layer.setStyle(
+       		    {
        		        weight: 5,
        		        color: '#666',
        		        dashArray: '',
@@ -820,36 +835,67 @@ html, body, #map {height: 100%;}
        		    if (!L.Browser.ie && !L.Browser.opera)
        		     { layer.bringToFront();}
        		 }
-
+//________________________________________________________________________________________________________________
             // Carica Grafico tweets per  ora del pop-up 
            function getChart(lineChartData,place){
           			var ctx = document.getElementById(place).getContext("2d");
  					window.myLine = new Chart(ctx).Line(lineChartData, {responsive: true}); 
           		}
+//________________________________________________________________________________________________________________
+
 
        		function click(e) {
-				var resized;
        		    cella = e.target;
+       		    var resized= cella.editing.enabled();
+       		    
+				
+       		    // editEnable ritorna  True se la cella è in modalità ridimensionabile
+				//var resized=cella.editing.editEnabled();
+				//alert(resized);
+				
+
 				var punti = cella.getBounds().toBBoxString().split(',');
 
-       		    // se attiva la Resize mode, la  cella cliccata  diventa modificabile e col bordo rosso 
+				
+       		    // se attiva la Resize mode, la  cella cliccata  diventa modificabile e col bordo rosso : checked = true 
 				if (document.getElementById("resize").checked)
+					
 				{	
 					
-					cella.bringToFront();
-					cella.editing.enable();
+
+						cella.bringToFront();
+						cella.editing.enable();
+						
+						cella.setStyle ({
+	       		        weight: 5,
+	       		        color: 'red',
+	       		        dashArray: '',
+	       		        fillOpacity: 0.7 });
+						
+						//cella.on('editable:vertex:dragend', function(e,resized){ alert("event");return resized=true;} );
+						//map.addControl(cella);
+
+						if (resized==true)
+						{ // se la cella è in modalità editabile quando viene cliccata genero picchi su  nuova area
+							var punti2 = cella.getBounds().toBBoxString().split(',');
+							
+							s_lat = cella.getBounds().toBBoxString().split(',') [1];
+							s_lon = cella.getBounds().toBBoxString().split(',') [0];
+							e_lat = cella.getBounds().toBBoxString().split(',') [3];
+							e_lon = cella.getBounds().toBBoxString().split(',') [2];
+							
+							bounds=[[ [s_lon,s_lat],[s_lon,e_lat],[e_lon,e_lat],[e_lon,s_lat] ]];
+							createPopup(e, bounds, resized);
+						}
+
+						// cella.on('editable:vertex:dragend', function(e,resized){ alert("event");return cella.resized=true;});
 					
-					cella.setStyle ({
-       		        weight: 5,
-       		        color: 'red',
-       		        dashArray: '',
-       		        fillOpacity: 0.7 });
-					
+	       			
 					}		
 				else 
-				{  	resized=0;
-
-					cella.editing.disable();
+				{  	cella.editing.disable();
+					resized=false;
+					
 					var punti2 = cella.getBounds().toBBoxString().split(',');
 					
 					s_lat = cella.getBounds().toBBoxString().split(',') [1];
@@ -859,34 +905,36 @@ html, body, #map {height: 100%;}
 					
 					
 					bounds=[[ [s_lon,s_lat],[s_lon,e_lat],[e_lon,e_lat],[e_lon,s_lat] ]];
-					edge=0.006001;
-					if ( Math.abs(e_lat-s_lat)>edge || Math.abs(e_long-s_long>edge)  )
-						{resized=1;}
-					if(Math.abs(e_lat-s_lat)<=edge && Math.abs(e_long-s_long)<=edge)
-						{resized=0;}
-					
 					createPopup(e, bounds, resized);
-
-         	    	
          	    }
+       		   
+       		    
        		}
-     		
+//________________________________________________________________________________________________________________
+
        		var geojson;
          	function resetHighlight(e) { geojson.resetStyle(e.target); }
+//________________________________________________________________________________________________________________
          	
-       		function onEachFeature(feature, layer) {
+       		function onEachFeature(feature, layer) 
+       		{
+	
        			layer.on({
+       				
        				mouseover: highlightFeature,
        				mouseout: resetHighlight,
        				click:  click
-       			});
+       				//'editable:vertex:dragend' : function(e,resized){ alert("event");resizedreturn resized=true;}
+       				
+       					});
        		}
        		
-		geojson = L.geoJson(tiles,
-		 {
-		 	style : myStyle,
-			onEachFeature : onEachFeature
-		  }).addTo(map);
+			geojson = L.geoJson(tiles,
+			 {
+			 	style : myStyle,
+				onEachFeature : onEachFeature
+				
+			   }).addTo(map);
 		
           <%} //chiude primo for j
 		} // chiude secondo for i%>
@@ -898,6 +946,8 @@ html, body, #map {height: 100%;}
 	
 	
 	<script>
+	//________________________________________________________________________________________________________________
+	
 
 		function yes(peak) 
 		{
@@ -930,6 +980,7 @@ html, body, #map {height: 100%;}
 				}
 			});
 		}
+//________________________________________________________________________________________________________________
 
 		function no(peak)
 		{
@@ -945,6 +996,7 @@ html, body, #map {height: 100%;}
 				}
 			});
 		}
+//________________________________________________________________________________________________________________
 
 		function done() {
 			location.reload();
